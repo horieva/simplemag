@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Random Posts slide dock. Appears in single.php
  *
@@ -12,11 +12,11 @@ global $ti_option;
 
     <a class="close-dock" href="#" title="Close"><i class="icomoon-remove-sign"></i></a>
     <h3><?php _e( 'More Stories', 'themetext' ); ?></h3>
-    
+
     <div class="entries">
-    
+
     <?php
-	
+
         $ti_random_post = new WP_Query(
             array(
                 'post_type' => 'post',
@@ -26,11 +26,11 @@ global $ti_option;
                 'ignore_sticky_posts' => 1
             )
         );
-		
+
         while ( $ti_random_post->have_posts() ) : $ti_random_post->the_post(); ?>
-        
+
         <article>
-        	<figure class="entry-image">
+        	<figure class="entry-image inview">
                 <a href="<?php the_permalink(); ?>">
                     <?php
 					if ( has_post_thumbnail() ) {
@@ -40,7 +40,7 @@ global $ti_option;
 					} ?>
                 </a>
             </figure>
-            
+
             <header class="entry-header">
                 <h4>
                     <a href="<?php the_permalink(); ?>">
@@ -48,16 +48,16 @@ global $ti_option;
                     </a>
                 </h4>
             </header>
-            
+
             <div class="entry-summary">
                 <?php the_excerpt(); ?>
             </div>
         </article>
-        
+
     <?php endwhile; ?>
-    
+
 	<?php wp_reset_postdata(); ?>
-    
+
     </div>
-    
+
 </div><!-- .slide-dock -->

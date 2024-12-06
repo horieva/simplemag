@@ -9,34 +9,34 @@
  */
 
 class TI_Latest_Category_Posts extends WP_Widget {
-	
-	
+
+
 	/**
 	 * Register widget
 	**/
 	function __construct() {
-		
+
 		parent::__construct(
 	 		'ti_latest_cat_posts', // Base ID
 			__( 'TI Latest Posts By Category', 'themetext' ), // Name
 			array( 'description' => __( 'Show latest posts from selected category', 'themetext' ), ) // Args
 		);
-		
+
 	}
 
-	
+
 	/**
 	 * Front-end display of widget
 	**/
 	function widget( $args, $instance ) {
-				
+
 		extract( $args );
 
 		$title = apply_filters('widget_title', isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : 'Category Name' );
 		$items_num = isset( $instance['items_num'] ) ? esc_attr( $instance['items_num'] ) : '3';
 		$cat_name = isset( $instance['cat_name'] ) ? esc_attr( $instance['cat_name'] ) : '';
 		$widget_type = isset( $instance['widget_type'] ) ? $instance['widget_type'] : 'flexslider';
-		
+
 		/**
 		 * Latest Posts
 		**/
@@ -54,7 +54,7 @@ class TI_Latest_Category_Posts extends WP_Widget {
 		if ( $ti_latest_cat_posts->have_posts() ):
 
 			echo $before_widget;
-            if ( $title ) echo $before_title . $title . $after_title; 
+            if ( $title ) echo $before_title . $title . $after_title;
             ?>
 
             <div class="<?php echo $widget_type; ?>">
@@ -65,13 +65,13 @@ class TI_Latest_Category_Posts extends WP_Widget {
                     <?php while ( $ti_latest_cat_posts->have_posts() ) : $ti_latest_cat_posts->the_post(); ?>
                     	<li>
                             <?php if ( has_post_thumbnail() ) { ?>
-	                        	<figure class="entry-image">
+	                        	<figure class="entry-image inview">
 	                        		<a href="<?php the_permalink(); ?>">
 	                                	<?php the_post_thumbnail( 'rectangle-size' ); ?>
 	                                </a>
 	                			</figure>
 	                        <?php } elseif( first_post_image() ) { // Set the first image from the editor ?>
-								<figure class="entry-image">
+								<figure class="entry-image inview">
 	                        		<a href="<?php the_permalink(); ?>">
 	                        			<img src="<?php echo first_post_image(); ?>" class="wp-post-image" alt="<?php the_title(); ?>" />
 	                        		</a>
@@ -86,17 +86,17 @@ class TI_Latest_Category_Posts extends WP_Widget {
             <?php
             echo $after_widget;
 			wp_reset_postdata();
-    
+
 		endif;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Sanitize widget form values as they are saved
 	**/
 	function update( $new_instance, $old_instance ) {
-		
+
 		$instance = array();
 
 		/* Strip tags to remove HTML. For text inputs and textarea. */
@@ -104,17 +104,17 @@ class TI_Latest_Category_Posts extends WP_Widget {
 		$instance['items_num'] = strip_tags( $new_instance['items_num'] );
 		$instance['cat_name'] = strip_tags( $new_instance['cat_name'] );
 		$instance['widget_type'] = $new_instance['widget_type'];
-		
+
 		return $instance;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Back-end widget form
 	**/
 	function form( $instance ) {
-		
+
 		/* Default widget settings. */
 		$defaults = array(
 			'title' => 'Category Name',
@@ -123,7 +123,7 @@ class TI_Latest_Category_Posts extends WP_Widget {
 			'widget_type' => 'flexslider'
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
-		
+
 	?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'themeText'); ?></label>
@@ -146,13 +146,13 @@ class TI_Latest_Category_Posts extends WP_Widget {
 			<?php } ?>
             </select>
         </p>
-        <p>            
+        <p>
         	<input type="radio" id="<?php echo $this->get_field_id( 'flexslider' ); ?>" name="<?php echo $this->get_field_name( 'widget_type' ); ?>" <?php if ($instance["widget_type"] == 'flexslider') echo 'checked="checked"'; ?> value="flexslider" />
             <label for="<?php echo $this->get_field_id( 'flexslider' ); ?>"><?php _e( 'Display posts as Slider', 'themetext' ); ?></label><br />
-            
+
 			<input type="radio" id="<?php echo $this->get_field_id( 'widget-posts-entries' ); ?>" name="<?php echo $this->get_field_name( 'widget_type' ); ?>" <?php if ($instance["widget_type"] == 'widget-posts-entries') echo 'checked="checked"'; ?> value="widget-posts-entries" />
             <label for="<?php echo $this->get_field_id( 'widget-posts-entries' ); ?>"><?php _e( 'Display posts as List', 'themetext' ); ?></label><br />
-            
+
             <input type="radio" id="<?php echo $this->get_field_id( 'widget-posts-classic-entries' ); ?>" name="<?php echo $this->get_field_name( 'widget_type' ); ?>" <?php if ($instance["widget_type"] == 'widget-posts-classic-entries') echo 'checked="checked"'; ?> value="widget-posts-classic-entries" />
             <label for="<?php echo $this->get_field_id( 'widget-posts-classic-entries' ); ?>"><?php _e( 'Display posts as Classic List', 'themetext' ); ?></label>
         </p>

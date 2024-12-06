@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Latest Posts by Format
  * Page Composer Section
@@ -36,14 +36,14 @@ if ( get_sub_field( 'format_background_color' ) != '#ffffff' && get_sub_field( '
         <?php endif; ?>
     </header>
     <?php endif; ?>
-    
+
 	<?php
 	/**
 	 * Get the format name which will filter the section
 	 * Check if format is standard or something else
 	**/
 	$format_name = get_sub_field( 'format_section_name' );
-	
+
 	if ( get_sub_field( 'format_section_name' ) == 'standard' ):
 		$format_args = array(
 				'taxonomy' => 'post_format',
@@ -58,7 +58,7 @@ if ( get_sub_field( 'format_background_color' ) != '#ffffff' && get_sub_field( '
 				'terms' => 'post-format-'.$format_name
 			);
 	endif;
-	
+
 	$posts_to_show = get_sub_field( 'format_posts_per_page' );
 	$ti_format_posts = new WP_Query(
 		array(
@@ -68,14 +68,14 @@ if ( get_sub_field( 'format_background_color' ) != '#ffffff' && get_sub_field( '
 		)
 	);
 	?>
-            
+
     <div class="grids entries">
-    
-        <?php if ( $ti_format_posts->have_posts() ) : 
+
+        <?php if ( $ti_format_posts->have_posts() ) :
                 while ( $ti_format_posts->have_posts() ) : $ti_format_posts->the_post(); ?>
-    
+
                 <article <?php post_class("grid-4"); ?>>
-                    <figure class="entry-image">
+                    <figure class="entry-image inview">
                         <a href="<?php the_permalink(); ?>">
                         <?php
                         if ( has_post_thumbnail() ) {
@@ -91,19 +91,19 @@ if ( get_sub_field( 'format_background_color' ) != '#ffffff' && get_sub_field( '
                         </h2>
                     </header>
                 </article>
-        
+
         <?php endwhile; ?>
-        
+
         <?php wp_reset_postdata(); ?>
 
     </div>
-        
+
     <?php else: ?>
-    
+
     <p class="message">
         <?php _e( 'There are no posts with this format yet', 'themetext' ); ?>
     </p>
-        
+
     <?php endif; ?>
-    
+
 </section><!-- Latest by Format -->

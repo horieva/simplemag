@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Featured Posts
  * Page Composer Section
@@ -10,7 +10,7 @@ global $ti_option;
 ?>
 
 <section class="wrapper home-section featured-posts">
-            		
+
 	<?php if( get_sub_field( 'featured_main_title' ) ): ?>
     <header class="section-header">
         <div class="title-with-sep">
@@ -21,9 +21,9 @@ global $ti_option;
         <?php endif; ?>
     </header>
     <?php endif; ?>
-    
+
     <?php
-    /** 
+    /**
      * Add posts to this section only if the 'Make Featured'
      * custom field checkbox was checked on the Post edit page
     **/
@@ -39,16 +39,16 @@ global $ti_option;
     ?>
 
     <div class="grids entries">
-    
-	<?php 
+
+	<?php
     if ( $ti_featured_posts->have_posts() ) :
         while ( $ti_featured_posts->have_posts() ) : $ti_featured_posts->the_post(); ?>
 
             <article <?php post_class("grid-4"); ?>>
-                
-                <figure class="entry-image">
+
+                <figure class="entry-image inview">
                     <a href="<?php the_permalink(); ?>">
-                        <?php 
+                        <?php
                         if ( has_post_thumbnail() ) {
                             the_post_thumbnail( 'rectangle-size' );
                         } elseif( first_post_image() ) { // Set the first image from the editor
@@ -56,7 +56,7 @@ global $ti_option;
                         } ?>
                     </a>
                 </figure>
-                
+
                 <header class="entry-header">
                     <div class="entry-meta">
                        <?php ti_meta_data(); ?>
@@ -74,15 +74,15 @@ global $ti_option;
                     </span>
                     <?php } ?>
                 </header>
-                
+
                 <?php if( get_sub_field( 'featured_excerpt' ) == 'enable' ) { ?>
                 <div class="entry-summary">
                     <?php the_excerpt(); ?>
                 </div>
                 <?php } ?>
-                    
+
             </article>
-        
+
         <?php endwhile; ?>
 
         <?php wp_reset_postdata(); ?>
