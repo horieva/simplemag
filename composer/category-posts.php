@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Latest Posts by Category
  * Page Composer Section
@@ -23,28 +23,28 @@ global $ti_option;
     <?php endif; ?>
 
     <div class="grids entries">
-		<?php 
+		<?php
 		/**
-		 * Select how many posts to show and 
+		 * Select how many posts to show and
 		 * get the category id which will filter the section
 		**/
 		$cats_to_show = get_sub_field( 'category_posts_per_page');
 		$cat_id = get_sub_field( 'category_section_name' );
-		
+
 		$ti_cat_posts = new WP_Query(
 			array(
 				'posts_per_page' => $cats_to_show,
 				'cat' =>  $cat_id
 			)
 		);
-			
+
 		if ( $ti_cat_posts->have_posts() ) :
 			while ( $ti_cat_posts->have_posts() ) : $ti_cat_posts->the_post();
 		?>
-        
+
             <article <?php post_class("grid-4"); ?>>
-            
-            	<figure class="entry-image">
+
+            	<figure class="entry-image inview">
                     <a href="<?php the_permalink(); ?>">
 						<?php
 						if ( has_post_thumbnail() ) {
@@ -54,7 +54,7 @@ global $ti_option;
 						} ?>
 					</a>
                 </figure>
-                
+
                 <header class="entry-header">
                     <div class="entry-meta">
                        <?php ti_meta_data(); ?>
@@ -71,7 +71,7 @@ global $ti_option;
                     </span>
                     <?php } ?>
                 </header>
-                
+
                 <?php if( get_sub_field( 'category_excerpt' ) == 'enable' ) { ?>
                 <div class="entry-summary">
                     <?php the_excerpt(); ?>
@@ -79,11 +79,11 @@ global $ti_option;
                 <?php } ?>
 
             </article>
-            
+
         <?php endwhile; ?>
-        
+
         <?php wp_reset_postdata(); ?>
-      
+
     </div>
 
         <?php
@@ -91,20 +91,20 @@ global $ti_option;
         if ( get_sub_field( 'category_button' ) == 'cat_but_enable' ) {
             // Link to the selected category
             $category_id = get_sub_field( 'category_section_name' );
-            $category_link = get_category_link( $category_id ); 
+            $category_link = get_category_link( $category_id );
             ?>
             <div class="composer-button clearfix">
                 <a class="read-more" href="<?php echo esc_url( $category_link ); ?>"><?php _e( 'View The Category', 'themetext' ); ?></a>
             </div>
         <?php } ?>
-        
-       
+
+
       <?php else: ?>
-        	
+
       <p class="message">
         <?php _e( 'This category does not contain any posts yet', 'themetext' ); ?>
       </p>
-            
+
       <?php endif; ?>
-    
+
 </section><!-- Latest by category -->

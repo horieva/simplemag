@@ -9,12 +9,12 @@
 
 <article <?php post_class("grid-4"); ?> itemscope itemtype="http://schema.org/Article">
 
-    <figure class="entry-image">
+    <figure class="entry-image inview">
     	<a href="<?php the_permalink(); ?>">
 			<?php
             // Different image size based on layout selection for Homepage, Categories and Posts Page
             echo ti_layout_based_post_image();
-			
+
             // Add icon to different post formats
             if ( 'gallery' == get_post_format() ): // Gallery
                 echo '<i class="icomoon-camera-retro"></i>';
@@ -26,10 +26,10 @@
             ?>
     	</a>
 
-        <?php 
+        <?php
         /* Show post rating if the feature was enabled */
         if ( get_field('enable_rating') == '1' ) {
-            
+
             $show_total = apply_filters( 'ti_score_total', '' ); // Call total score calculation function ?>
 
             <div class="score-line" style="width:<?php echo number_format( $show_total, 1, '', '' ); ?>%;">
@@ -37,7 +37,7 @@
             </div>
         <?php } ?>
     </figure>
-        
+
     <header class="entry-header">
         <div class="entry-meta">
            <?php ti_meta_data(); ?>
@@ -55,14 +55,14 @@
         </span>
         <?php } ?>
     </header>
-	    
+
     <?php if( $ti_option['site_wide_excerpt'] == 1 ) { // Enable/Disable the excerpt site wide ?>
     <div class="entry-summary" itemprop="text">
         <?php the_excerpt(); ?>
-        <?php if( $ti_option['read_more_link'] == 1 ) { ?> 
+        <?php if( $ti_option['read_more_link'] == 1 ) { ?>
         	<a class="read-more-link" href="<?php the_permalink(); ?>"><?php _e( 'Read More', 'themetext' ); ?></a>
         <?php } ?>
     </div>
     <?php } ?>
-    
+
 </article>
